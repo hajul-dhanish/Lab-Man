@@ -1,10 +1,14 @@
-import 'dart:ui';
+// ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+String Component = "Projectb demo"; 
+void main() => runApp(const MyApp());
 
 // GV
+// String ?CustomIcon;
+
+// String CustomIcon? avail : notAvail;
 
 Icon avail = const Icon(
   Icons.done,
@@ -14,6 +18,7 @@ Icon notAvail = const Icon(
   Icons.not_interested,
   color: Colors.red,
 );
+//
 String AppTitle = "Lab Man";
 Widget Div = const SizedBox(
   height: 8,
@@ -27,11 +32,28 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
+bool Exxpansion = false;
+//
+Icon Custom = avail;
+
+//
 class _MyAppState extends State<MyApp> {
+  void CustomSlip() {
+    if (Custom == notAvail) {
+      setState(() {
+       bool Exxpansion = true;
+      });
+//
+    } else{bool Exxpansion = false;}
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: AppTitle, debugShowCheckedModeBanner: false, home: HomeScreen());
+        theme: ThemeData(scaffoldBackgroundColor: Colors.amber[50]),
+        title: AppTitle,
+        debugShowCheckedModeBanner: false,
+        home: HomeScreen());
   }
 }
 
@@ -47,15 +69,17 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.amber[100],
         title: Text(AppTitle),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const ExpansionTile(
-              title: Text("The Lab Man"),
-              subtitle: Text("Sample UI for First Review"),
-              children: [Text("Hi Maple")],
+            ExpansionTile(
+              leading: CircleAvatar(child: Image.asset("assets/dp.jpg")),
+              title: const Text("The Lab Man"),
+              subtitle: const Text("Sample UI for First Review"),
+              children: const [Text("Hi Maple")],
             ),
             Div,
             const Text("Available Labs",
@@ -64,44 +88,74 @@ class _HomeScreenState extends State<HomeScreen> {
                   // decoration: TextDecoration.underline,
                 )),
             CustomCard(
+                contact: "950040541",
                 content: 'Mrs. Mai Senpai',
                 time: "9:00 - 12:00",
-                icont: avail,
+                icont: Custom,
                 image: 'assets/lab1.jpg',
                 labName: 'Microprocessor'),
-            CustomCard(
-                content: 'Mrs. Mikaro Senpai',
-                time: "10:00 - 13:30",
-                icont: notAvail,
-                image: 'assets/lab2.jpg',
-                labName: 'MicroController'),
-            CustomCard(
-                content: 'Mr. onnicha Senpai',
-                time: "13:30 - 14:00",
-                icont: avail,
-                image: 'assets/lab3.png',
-                labName: 'Electronics'),
-            CustomCard(
-                content: 'Mrs. Mai Senpai',
-                time: "10:00 - 13:00",
-                icont: avail,
-                image: 'assets/lab1.jpg',
-                labName: 'Digital Communication'),
+            // CustomCard(
+            //     content: 'Mrs. Mikaro Senpai',
+            //     time: "10:00 - 13:30",
+            //     icont: notAvail,
+            //     image: 'assets/lab2.jpg',
+            //     labName: 'MicroController'),
+            // CustomCard(
+            //     content: 'Mr. onnicha Senpai',
+            //     time: "13:30 - 14:00",
+            //     icont: avail,
+            //     image: 'assets/lab3.png',
+            //     labName: 'Electronics'),
+            // CustomCard(
+            //     content: 'Mrs. Mai Senpai',
+            //     time: "10:00 - 13:00",
+            //     icont: avail,
+            //     image: 'assets/lab1.jpg',
+            //     labName: 'Digital Communication'),
+            // CustomCard(
+            //     content: 'Mrs. Miko Senpai',
+            //     time: "13:00 - 16:00",
+            //     icont: notAvail,
+            //     image: 'assets/lab3.jpg',
+            //     labName: 'Wireless'),
+            // CustomCard(
+            //     content: 'Mr. nadyome Hoki Senpai',
+            //     time: "9:30 - 11:00",
+            //     icont: notAvail,
+            //     image: 'assets/lab2.jpg',
+            //     labName: 'Networking'),
           ],
         ),
       ),
     );
   }
 
+//
   Widget CustomCard({
     required String labName,
     required String image,
     required Icon icont,
     required String content,
     required String time,
+    required String contact,
   }) {
-    return Card(
-      child: ListTile(
+    return ExpansionTile(
+      children: [
+        Exxpansion
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {}, child: const Icon(Icons.call)),
+                  Div,
+                  ElevatedButton(
+                      onPressed: () {}, child: const Icon(Icons.mail)),
+                ],
+              )
+            : const Text("Enjoy your lab"),
+      ],
+      // color: Colors.amber[100],
+      title: ListTile(
         onTap: () {
           setState(() {
             Navigator.push(
@@ -146,10 +200,10 @@ class _HomeScreenState extends State<HomeScreen> {
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
       ),
-      margin: const EdgeInsets.all(20),
-      shape: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.green, width: 1)),
+      // margin: const EdgeInsets.all(20),
+      // shape: OutlineInputBorder(
+      //     borderRadius: BorderRadius.circular(10),
+      //     borderSide: const BorderSide(color: Colors.green, width: 1)),
     );
   }
 }
@@ -174,7 +228,8 @@ class _InnerLabsState extends State<InnerLabs> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset("assets/lab2.jpg"),
+                //
+                Text(Component),
                 Div,
                 const Text("<LAB DETAILS HERE blah blah blah..>"),
                 Div,
